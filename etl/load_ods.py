@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 import os
 from mappings import COLUMN_MAPPING
+from pathlib import Path
 
 load_dotenv()
 
@@ -72,6 +73,10 @@ def validate_prices(df):
 
 # ЗАГРУЗКА ДАННЫХ В БД
 def load_to_ods():
+
+    # # Вычисление абсолютного пути к файлу .env (подстраховка)
+    # env_path = Path(__file__).resolve().parent.parent / '.env'
+    # load_dotenv(env_path)
 
     # Подключение к БД
     engine = create_engine(
