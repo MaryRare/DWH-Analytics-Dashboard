@@ -9,7 +9,7 @@ AS SELECT p.category,
  GROUP BY p.category, (date_trunc('month'::text, s.date::timestamp with time zone))
 WITH DATA;
 
-*/
+/*
 CREATE MATERIALIZED VIEW dma.sales_summary AS
 SELECT 
     p.category,
