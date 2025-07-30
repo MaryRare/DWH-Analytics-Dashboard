@@ -80,7 +80,23 @@ def transform_to_dds():
         """))
 
         # Шаг 4: Обновляем витрины
-        conn.execute(text("REFRESH MATERIALIZED VIEW dma.sales_summary"))
+        views_to_refresh = [
+            "dma.sales_summary",
+            "dma.avg_check",
+            "dma.customer_metrics",
+            "dma.customer_activity",
+            "dma.sales_channels",
+            "dma.channel_cross_analysis",
+            "dma.payment_analysis",
+            #"dma.discount_impact"
+        ]
+        for view in views_to_refresh:
+            try:
+                conn.execute(text(f"REFRESH MATERIALIZED VIEW {view};"))
+                print(f"Обновлено: {view}")
+            except Exception as e:
+                print(f"Ошибка при обновлении {view}: {str(e)}")
+
         conn.commit()
     print("Трансформация в DDS завершена")
 
